@@ -17,6 +17,7 @@
     
     return [self m6_modelFromDictionary:dict];
 }
+
 - (NSDictionary *)m6_toJSON {
     return nil;
 }
