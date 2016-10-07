@@ -97,5 +97,4 @@
     return [NSString stringWithFormat:@"%@, %ld, %@", self.name, self.type, self.cls];
 }
 
-
 @end
