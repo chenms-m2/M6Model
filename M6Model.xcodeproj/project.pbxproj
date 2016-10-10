@@ -10,10 +10,12 @@
 		90DD052A1DA7A60C00C79B4C /* M6Model.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90DD05201DA7A60C00C79B4C /* M6Model.framework */; };
 		90DD052F1DA7A60C00C79B4C /* M6ModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DD052E1DA7A60C00C79B4C /* M6ModelTests.m */; };
 		90DD05311DA7A60C00C79B4C /* M6Model.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DD05231DA7A60C00C79B4C /* M6Model.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		90DD053C1DA7A69700C79B4C /* M6ClassInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DD053A1DA7A69700C79B4C /* M6ClassInfo.h */; };
 		90DD053D1DA7A69700C79B4C /* M6ClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DD053B1DA7A69700C79B4C /* M6ClassInfo.m */; };
-		90DD05401DA7A6A800C79B4C /* NSObject+M6Model.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DD053E1DA7A6A800C79B4C /* NSObject+M6Model.h */; };
 		90DD05411DA7A6A800C79B4C /* NSObject+M6Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DD053F1DA7A6A800C79B4C /* NSObject+M6Model.m */; };
+		90DD05771DAB8DE200C79B4C /* M6SimpleModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DD05761DAB8DE200C79B4C /* M6SimpleModelTests.m */; };
+		90DD057A1DAB8E5A00C79B4C /* SimpleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DD05791DAB8E5A00C79B4C /* SimpleModel.m */; };
+		90DD057B1DAB910700C79B4C /* NSObject+M6Model.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DD053E1DA7A6A800C79B4C /* NSObject+M6Model.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90DD057C1DAB910700C79B4C /* M6ClassInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DD053A1DA7A69700C79B4C /* M6ClassInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +39,9 @@
 		90DD053B1DA7A69700C79B4C /* M6ClassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M6ClassInfo.m; sourceTree = "<group>"; };
 		90DD053E1DA7A6A800C79B4C /* NSObject+M6Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+M6Model.h"; sourceTree = "<group>"; };
 		90DD053F1DA7A6A800C79B4C /* NSObject+M6Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+M6Model.m"; sourceTree = "<group>"; };
+		90DD05761DAB8DE200C79B4C /* M6SimpleModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M6SimpleModelTests.m; sourceTree = "<group>"; };
+		90DD05781DAB8E5A00C79B4C /* SimpleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleModel.h; sourceTree = "<group>"; };
+		90DD05791DAB8E5A00C79B4C /* SimpleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +97,10 @@
 		90DD052D1DA7A60C00C79B4C /* M6ModelTests */ = {
 			isa = PBXGroup;
 			children = (
+				90DD05781DAB8E5A00C79B4C /* SimpleModel.h */,
+				90DD05791DAB8E5A00C79B4C /* SimpleModel.m */,
 				90DD052E1DA7A60C00C79B4C /* M6ModelTests.m */,
+				90DD05761DAB8DE200C79B4C /* M6SimpleModelTests.m */,
 				90DD05301DA7A60C00C79B4C /* Info.plist */,
 			);
 			path = M6ModelTests;
@@ -105,9 +113,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90DD053C1DA7A69700C79B4C /* M6ClassInfo.h in Headers */,
 				90DD05311DA7A60C00C79B4C /* M6Model.h in Headers */,
-				90DD05401DA7A6A800C79B4C /* NSObject+M6Model.h in Headers */,
+				90DD057B1DAB910700C79B4C /* NSObject+M6Model.h in Headers */,
+				90DD057C1DAB910700C79B4C /* M6ClassInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,7 +226,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90DD05771DAB8DE200C79B4C /* M6SimpleModelTests.m in Sources */,
 				90DD052F1DA7A60C00C79B4C /* M6ModelTests.m in Sources */,
+				90DD057A1DAB8E5A00C79B4C /* SimpleModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
