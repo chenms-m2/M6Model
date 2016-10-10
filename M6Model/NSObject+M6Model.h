@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface NSObject (M6Model)
-+ (instancetype)m6_modelFromJSON:(NSDictionary *)json;
++ (instancetype)m6_modelFromJSON:(id)json;
 - (NSDictionary *)m6_toJSON;
 @end
 
 @interface NSArray (M6Model)
-+ (NSArray *)m6_modelArrayOfClass:(Class)clas fromJSON:(NSArray *)json;
++ (NSArray *)m6_modelArrayOfClass:(Class)clas fromJSON:(id)json;
 - (NSArray *)m6_toJSON;
 @end
