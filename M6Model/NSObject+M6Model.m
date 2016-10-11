@@ -11,17 +11,28 @@
 #import "M6ClassInfo.h"
 
 @implementation NSObject (M6Model)
-//
+
+#pragma mark - public
 + (instancetype)m6_modelFromJSON:(id)json {
     NSDictionary *dict = [self m6_dictionaryWithJSON:json];
     
-    return [self m6_modelFromDictionary:dict];
+    return (dict ? [self m6_modelFromDictionary:dict] : nil);
 }
 
 - (NSDictionary *)m6_toJSON {
     return nil;
 }
 
+#pragma mark - need override
++ (NSDictionary *)m6_containerPropertyElementClassMapping {
+    return nil;
+}
+
++ (NSDictionary *)m6_customPropertyJSONMapping {
+    return nil;
+}
+
+#pragma mark - other
 + (NSDictionary *)m6_dictionaryWithJSON:(id)json {
     if (!json || json == [NSNull null]) return nil;
     
@@ -46,18 +57,54 @@
     // all property
     NSObject *model = [self new];
     NSArray *properties = [self allProperties];
-    NSLog(@"properties: %@", properties);
-    NSLog(@"dict: %@", dictionary);
+//    NSLog(@"properties: %@", properties);
+//    NSLog(@"dict: %@", dictionary);
     
     // loop
     [properties enumerateObjectsUsingBlock:^(M6Property * _Nonnull property, NSUInteger idx, BOOL * _Nonnull stop) {
         // getValue
-        NSObject *value = [dictionary objectForKey:property.name];
+        
+        NSString *key = [[self m6_customPropertyJSONMapping] objectForKey:property.name];
+        NSObject *value = [dictionary objectForKey: key ?: property.name];
+        
         if (value) {
-            if ([value isKindOfClass:[NSNumber class]] && property.type == M6PropertyTypePrimitive) {
+            if (property.type == M6PropertyTypePrimitive && [value isKindOfClass:[NSNumber class]]) {
                 [model setValue:value forKey:property.name];
-            } else if ([value isKindOfClass:property.cls]) {
-                [model setValue:value forKey:property.name];
+            } else if (property.type == M6PropertyTypeCustomObject) {
+                NSObject *innerModel = [property.cls m6_modelFromJSON:value];
+                [model setValue:innerModel forKey:property.name];
+            } else if (property.type == M6PropertyTypeFoundationObject && [value isKindOfClass:property.cls]) {
+                if ([value isKindOfClass:[NSArray class]]) {
+                    NSDictionary *dict = [self m6_containerPropertyElementClassMapping];
+                    Class elementClass = nil;
+                    id obj = [dict objectForKey:property.name];
+                    Class meta = object_getClass(obj);
+                    if (meta && class_isMetaClass(meta)) {
+                        elementClass = obj;
+                    } else if ([obj isKindOfClass:[NSString class]]) {
+                        elementClass = NSClassFromString(obj);
+                    }
+                    
+                    if(elementClass) {
+                        NSArray *srcArray = (NSArray *)value;
+                        NSMutableArray *destArray = [NSMutableArray array];
+                        [srcArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            // TODO: elementClass为Foundition中类没有处理
+                            NSObject *model = [elementClass m6_modelFromJSON:obj];
+                            if (model) {
+                                [destArray addObject:model];
+                            }
+                        }];
+                        if ([destArray count] == 0) {
+                            destArray = nil;
+                        }
+                        [model setValue:destArray forKey:property.name];
+                    } else {
+                        [model setValue:value forKey:property.name];
+                    }
+                } else {
+                    [model setValue:value forKey:property.name];
+                }
             } else {
                 [self injectNullValueIntoModel:model property:property];
             }
