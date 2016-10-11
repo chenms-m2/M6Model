@@ -8,26 +8,36 @@
 
 #import <Foundation/Foundation.h>
 
-@class SimpleInnerModel;
+@class InnerModel;
+
+@interface Model : NSObject
+@end
 
 @interface SimpleModel : NSObject
-
 @property (nonatomic) NSInteger i;
 @property (nonatomic) double d;
 @property (nonatomic) BOOL b;
 @property (nonatomic, copy) NSString *string;
 @property (nonatomic, copy) NSArray *array;
-@property (nonatomic) SimpleInnerModel *innerModel;
-@property (nonatomic) NSArray *innerModelArray;
-@end
-
-@interface SimpleInnerModel : NSObject
-@property (nonatomic) NSInteger innerID;
-@property (nonatomic, copy) NSString *innerName;
 @end
 
 @interface SubSimpleModel : SimpleModel
 @property (nonatomic) NSInteger subID;
+@end
+
+@interface NestedModel : NSObject
+@property (nonatomic) NSInteger mID;
+@property (nonatomic) InnerModel *innerModel;
+@end
+
+@interface InnerModel : NSObject
+@property (nonatomic) NSInteger mID;
+@property (nonatomic, copy) NSString *name;
+@end
+
+@interface NestedArrayModel : NSObject
+@property (nonatomic) NSInteger mID;
+@property (nonatomic) NSArray *innerModelArray;
 @end
 
 @interface CustomPropertyMappingModel : NSObject

@@ -20,7 +20,51 @@
 }
 
 - (NSDictionary *)m6_toJSON {
-    return nil;
+    NSMutableDictionary *json = [NSMutableDictionary dictionary];
+    NSArray *properties = [self.class allProperties];
+    
+    [properties enumerateObjectsUsingBlock:^(M6Property * _Nonnull property, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *key = [[self.class m6_customPropertyJSONMapping] objectForKey:property.name] ?: property.name;
+        NSObject *value = [self valueForKey:property.name];
+        if (value) {
+            if (property.type == M6PropertyTypeCustomObject) {
+                NSDictionary *innerJSON = [value m6_toJSON];
+                [json setObject:innerJSON forKey:key];
+            } else if ([value isKindOfClass:[NSArray class]]) {
+                NSDictionary *dict = [self.class m6_containerPropertyElementClassMapping];
+                Class elementClass = nil;
+                id obj = [dict objectForKey:property.name];
+                Class meta = object_getClass(obj);
+                if (meta && class_isMetaClass(meta)) {
+                    elementClass = obj;
+                } else if ([obj isKindOfClass:[NSString class]]) {
+                    elementClass = NSClassFromString(obj);
+                }
+                
+                if(elementClass) {
+                    NSArray *srcArray = (NSArray *)value;
+                    NSMutableArray *destArray = [NSMutableArray array];
+                    [srcArray enumerateObjectsUsingBlock:^(id  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+                        // TODO: elementClass为Foundition中类没有处理
+                        NSDictionary *json = [model m6_toJSON];
+                        if (json) {
+                            [destArray addObject:json];
+                        }
+                    }];
+                    if ([destArray count] == 0) {
+                        destArray = nil;
+                    }
+                    [json setObject:destArray forKey:key];
+                } else {
+                    [json setObject:value forKey:key];
+                }
+            } else {
+                [json setObject:value forKey:key];
+            }
+        }
+    }];
+    
+    return json;
 }
 
 #pragma mark - need override
@@ -64,15 +108,16 @@
     [properties enumerateObjectsUsingBlock:^(M6Property * _Nonnull property, NSUInteger idx, BOOL * _Nonnull stop) {
         // getValue
         
-        NSString *key = [[self m6_customPropertyJSONMapping] objectForKey:property.name];
-        NSObject *value = [dictionary objectForKey: key ?: property.name];
+        NSString *key = property.name;
+        NSString *jsonKey = ([[self m6_customPropertyJSONMapping] objectForKey:property.name] ?: property.name);
+        NSObject *value = [dictionary objectForKey: jsonKey];
         
         if (value) {
             if (property.type == M6PropertyTypePrimitive && [value isKindOfClass:[NSNumber class]]) {
-                [model setValue:value forKey:property.name];
+                [model setValue:value forKey:key];
             } else if (property.type == M6PropertyTypeCustomObject) {
                 NSObject *innerModel = [property.cls m6_modelFromJSON:value];
-                [model setValue:innerModel forKey:property.name];
+                [model setValue:innerModel forKey:key];
             } else if (property.type == M6PropertyTypeFoundationObject && [value isKindOfClass:property.cls]) {
                 if ([value isKindOfClass:[NSArray class]]) {
                     NSDictionary *dict = [self m6_containerPropertyElementClassMapping];
@@ -98,12 +143,12 @@
                         if ([destArray count] == 0) {
                             destArray = nil;
                         }
-                        [model setValue:destArray forKey:property.name];
+                        [model setValue:destArray forKey:key];
                     } else {
-                        [model setValue:value forKey:property.name];
+                        [model setValue:value forKey:key];
                     }
                 } else {
-                    [model setValue:value forKey:property.name];
+                    [model setValue:value forKey:key];
                 }
             } else {
                 [self injectNullValueIntoModel:model property:property];
