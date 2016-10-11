@@ -7,8 +7,8 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "SimpleModel.h"
 #import "M6Model.h"
+#import "Model.h"
 
 @interface M6JSONToModelTests : XCTestCase
 
@@ -28,12 +28,12 @@
 }
 
 - (void)testSimpleModel {
-    NSString *json = @"{\"i\": 123, \"d\": 123.3, \"b\": true, \"string\": \"string\", \"array\":[0, 1, 2]}";
+    NSString *json = @"{\"i\": 123, \"d\": 123.4, \"b\": true, \"string\": \"string\", \"array\":[0, 1, 2]}";
     SimpleModel *model = [SimpleModel m6_modelFromJSON:json];
 //    NSLog(@"%s, %@", __func__, model);
     
     XCTAssertEqual(model.i, 123);
-    XCTAssertEqual(model.d, 123.3);
+    XCTAssertEqual(model.d, 123.4);
     XCTAssertEqual(model.b, YES);
     XCTAssert([model.string isEqualToString:@"string"]);
     NSArray *array = @[@0, @1, @2];
@@ -49,30 +49,30 @@
 }
 
 - (void)testNestedModel {
-    NSString *json = @"{\"i\": 123, \"d\": 123.3, \"b\": true, \"string\": \"string\", \"array\":[0, 1, 2], \"innerModel\": {\"innerID\": 6666, \"innerName\": \"innerName\"}}";
-    SimpleModel *model = [SimpleModel m6_modelFromJSON:json];
+    NSString *json = @"{\"mID\": 123, \"innerModel\": {\"mID\": 1024, \"name\": \"name\"}}";
+    NestedModel *model = [NestedModel m6_modelFromJSON:json];
 //    NSLog(@"%s, %@", __func__, model);
     
-    XCTAssertEqual(model.innerModel.innerID, 6666);
-    XCTAssert([model.innerModel.innerName isEqualToString:@"innerName"]);
+    XCTAssertEqual(model.innerModel.mID, 1024);
+    XCTAssert([model.innerModel.name isEqualToString:@"name"]);
 }
 
-- (void)testArrayModel {
-   NSString *json = @"{\"i\": 123, \"d\": 123.3, \"b\": true, \"string\": \"string\", \"array\":[0, 1, 2], \"innerModelArray\": [{\"innerID\": 6666, \"innerName\": \"innerName6666\"}, {\"innerID\": 7777, \"innerName\": \"innerName7777\"}]}";
-    
-    SimpleModel *model = [SimpleModel m6_modelFromJSON:json];
+- (void)testNestedArrayModel {
+   NSString *json = @"{\"mID\": 123, \"innerModelArray\": [{\"mID\": 6666, \"name\": \"name6666\"}, {\"mID\": 7777, \"name\": \"name7777\"}]}";
+
+    NestedArrayModel *model = [NestedArrayModel m6_modelFromJSON:json];
 //    NSLog(@"%s, %@", __func__, model);
     
-    XCTAssertEqual(((SimpleInnerModel *)(model.innerModelArray[0])).innerID, 6666);
-    XCTAssert([((SimpleInnerModel *)(model.innerModelArray[0])).innerName isEqualToString:@"innerName6666"]);
-    XCTAssertEqual(((SimpleInnerModel *)(model.innerModelArray[1])).innerID, 7777);
-    XCTAssert([((SimpleInnerModel *)(model.innerModelArray[1])).innerName isEqualToString:@"innerName7777"]);
+    XCTAssertEqual(((InnerModel *)(model.innerModelArray[0])).mID, 6666);
+    XCTAssert([((InnerModel *)(model.innerModelArray[0])).name isEqualToString:@"name6666"]);
+    XCTAssertEqual(((InnerModel *)(model.innerModelArray[1])).mID, 7777);
+    XCTAssert([((InnerModel *)(model.innerModelArray[1])).name isEqualToString:@"name7777"]);
 }
 
 - (void)testCustomPropertyMappingModel {
     NSString *json = @"{\"id\": 123, \"name\": \"name\"}";
     CustomPropertyMappingModel *model = [CustomPropertyMappingModel m6_modelFromJSON:json];
-    NSLog(@"%s, %@", __func__, model);
+//    NSLog(@"%s, %@", __func__, model);
     
     XCTAssertEqual(model.mID, 123);
     XCTAssert([model.name isEqualToString:@"name"]);

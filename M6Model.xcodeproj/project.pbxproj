@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90D55CD91DACF71300E3E026 /* M6ModelToJSONTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D55CD81DACF71300E3E026 /* M6ModelToJSONTests.m */; };
 		90DD052A1DA7A60C00C79B4C /* M6Model.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90DD05201DA7A60C00C79B4C /* M6Model.framework */; };
 		90DD05311DA7A60C00C79B4C /* M6Model.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DD05231DA7A60C00C79B4C /* M6Model.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90DD053D1DA7A69700C79B4C /* M6ClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DD053B1DA7A69700C79B4C /* M6ClassInfo.m */; };
 		90DD05411DA7A6A800C79B4C /* NSObject+M6Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DD053F1DA7A6A800C79B4C /* NSObject+M6Model.m */; };
 		90DD05771DAB8DE200C79B4C /* M6JSONToModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DD05761DAB8DE200C79B4C /* M6JSONToModelTests.m */; };
-		90DD057A1DAB8E5A00C79B4C /* SimpleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DD05791DAB8E5A00C79B4C /* SimpleModel.m */; };
+		90DD057A1DAB8E5A00C79B4C /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DD05791DAB8E5A00C79B4C /* Model.m */; };
 		90DD057B1DAB910700C79B4C /* NSObject+M6Model.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DD053E1DA7A6A800C79B4C /* NSObject+M6Model.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90DD057C1DAB910700C79B4C /* M6ClassInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DD053A1DA7A69700C79B4C /* M6ClassInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		90D55CD81DACF71300E3E026 /* M6ModelToJSONTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M6ModelToJSONTests.m; sourceTree = "<group>"; };
 		90DD05201DA7A60C00C79B4C /* M6Model.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = M6Model.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90DD05231DA7A60C00C79B4C /* M6Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = M6Model.h; sourceTree = "<group>"; };
 		90DD05241DA7A60C00C79B4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -38,8 +40,8 @@
 		90DD053E1DA7A6A800C79B4C /* NSObject+M6Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+M6Model.h"; sourceTree = "<group>"; };
 		90DD053F1DA7A6A800C79B4C /* NSObject+M6Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+M6Model.m"; sourceTree = "<group>"; };
 		90DD05761DAB8DE200C79B4C /* M6JSONToModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M6JSONToModelTests.m; sourceTree = "<group>"; };
-		90DD05781DAB8E5A00C79B4C /* SimpleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleModel.h; sourceTree = "<group>"; };
-		90DD05791DAB8E5A00C79B4C /* SimpleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleModel.m; sourceTree = "<group>"; };
+		90DD05781DAB8E5A00C79B4C /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		90DD05791DAB8E5A00C79B4C /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,9 +97,10 @@
 		90DD052D1DA7A60C00C79B4C /* M6ModelTests */ = {
 			isa = PBXGroup;
 			children = (
-				90DD05781DAB8E5A00C79B4C /* SimpleModel.h */,
-				90DD05791DAB8E5A00C79B4C /* SimpleModel.m */,
+				90DD05781DAB8E5A00C79B4C /* Model.h */,
+				90DD05791DAB8E5A00C79B4C /* Model.m */,
 				90DD05761DAB8DE200C79B4C /* M6JSONToModelTests.m */,
+				90D55CD81DACF71300E3E026 /* M6ModelToJSONTests.m */,
 				90DD05301DA7A60C00C79B4C /* Info.plist */,
 			);
 			path = M6ModelTests;
@@ -224,7 +227,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				90DD05771DAB8DE200C79B4C /* M6JSONToModelTests.m in Sources */,
-				90DD057A1DAB8E5A00C79B4C /* SimpleModel.m in Sources */,
+				90D55CD91DACF71300E3E026 /* M6ModelToJSONTests.m in Sources */,
+				90DD057A1DAB8E5A00C79B4C /* Model.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
