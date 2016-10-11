@@ -26,7 +26,7 @@
             Class cls = nil;
             property.type = [self typeFromAttributeValue:attribute.value cls:&cls];
             property.cls = cls;
-            NSLog(@"%@: %ld: %@: %s", property.name, property.type, property.cls, attribute.value);
+//            NSLog(@"%@: %ld: %@: %s", property.name, property.type, property.cls, attribute.value);
         }
     }
     free(attributes);

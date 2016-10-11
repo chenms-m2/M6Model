@@ -18,14 +18,19 @@
 @property (nonatomic, copy) NSString *string;
 @property (nonatomic, copy) NSArray *array;
 @property (nonatomic) SimpleInnerModel *innerModel;
+@property (nonatomic) NSArray *innerModelArray;
 @end
 
-
 @interface SimpleInnerModel : NSObject
-
+@property (nonatomic) NSInteger innerID;
+@property (nonatomic, copy) NSString *innerName;
 @end
 
 @interface SubSimpleModel : SimpleModel
 @property (nonatomic) NSInteger subID;
 @end
 
+@interface CustomPropertyMappingModel : NSObject
+@property (nonatomic) NSInteger mID;
+@property (nonatomic, copy) NSString *name;
+@end
